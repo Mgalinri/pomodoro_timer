@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 
 //To-Do: Use Pad-Start to solve the display issue 
-//To-Do: Trigger the function only when the button is clicked
+
 export default function Home() {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
@@ -13,11 +13,14 @@ export default function Home() {
     setMinutes(25);
     setSeconds(0);
     setStart([true,'PAUSE'])
+    Notification.requestPermission();
+    
   }
   function handleBreakClick(){
        setMinutes(0);
        setSeconds(2);
        setStart([true,'PAUSE'])
+       Notification.requestPermission();
   }
   function handlePause(){
        if(start[0]){
@@ -27,8 +30,11 @@ export default function Home() {
         setStart([true,'PAUSE'])
        }
   }
-  function handleNotifications(){
-
+  async function handleNotifications(){
+         const permission = await navigator.permissions.query({name: "notifications"});
+if (permission.state === "granted") {
+   new Notification("The pomodoro timer has ended")
+}
        
   }
   function addSound(){
@@ -37,11 +43,14 @@ export default function Home() {
     
   }
   useEffect(() => {
-    const timer = setInterval(() => {
+    const timer = setInterval(async () => {
       if(start[0]){
       if(seconds===0 && minutes==0){
+        //At the end of the timer, to display a notification
              addSound()
+             await handleNotifications()
              setStart([false,'PAUSE'])
+             
       }
       else if (seconds === 0 ) {
         setSeconds((prevSeconds) => 59);
