@@ -3,12 +3,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 
-//To-Do: Use Pad-Start to solve the display issue 
-
 export default function Home() {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [start, setStart] = useState([false,'PAUSE'])
+  function textDisplay(element:number){
+    return String(element).padStart(2,'0')
+  }
   function handleClick() {
     setMinutes(25);
     setSeconds(0);
@@ -17,8 +18,8 @@ export default function Home() {
     
   }
   function handleBreakClick(){
-       setMinutes(0);
-       setSeconds(2);
+       setMinutes(5);
+       setSeconds(0);
        setStart([true,'PAUSE'])
        Notification.requestPermission();
   }
@@ -27,16 +28,16 @@ export default function Home() {
           setStart([false,'RESTART'])
        }
        else if(!start[0]){
-        setStart([true,'PAUSE'])
+          setStart([true,'PAUSE'])
        }
   }
   async function handleNotifications(){
          const permission = await navigator.permissions.query({name: "notifications"});
-if (permission.state === "granted") {
-   new Notification("The pomodoro timer has ended")
-}
-       
+          if (permission.state === "granted") {
+              new Notification("The pomodoro timer has ended")
+            } 
   }
+
   function addSound(){
       const audioElement = new Audio("../sound/mixkit-retro-game-notification-212.mp3")
       audioElement.play()
@@ -87,7 +88,7 @@ if (permission.state === "granted") {
                       <div className=" border-2 rounded-sm  flex items-center justify-center border-[#a1a79b] w-69 h-37">
                         <div className="bg-[#a1a79b]  rounded-sm  flex  items-center justify-center border-white w-66 h-35">
                           <h1 className="text-grey-800 self-end font-(family-name:--font-digital-7) ml-auto pr-4 text-7xl ">
-                            {minutes}:{seconds}
+                            {textDisplay(minutes)}:{textDisplay(seconds)}
                           </h1>
                         </div>
                       </div>
