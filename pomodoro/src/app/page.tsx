@@ -15,8 +15,8 @@ export default function Home() {
     setStart([true,'PAUSE'])
   }
   function handleBreakClick(){
-       setMinutes(5);
-       setSeconds(0);
+       setMinutes(0);
+       setSeconds(2);
        setStart([true,'PAUSE'])
   }
   function handlePause(){
@@ -28,20 +28,28 @@ export default function Home() {
        }
   }
   function handleNotifications(){
+
        
   }
   function addSound(){
-
+      const audioElement = new Audio("../sound/mixkit-retro-game-notification-212.mp3")
+      audioElement.play()
+    
   }
   useEffect(() => {
     const timer = setInterval(() => {
-      if (seconds == 0 && start[0]) {
+      if(start[0]){
+      if(seconds===0 && minutes==0){
+             addSound()
+             setStart([false,'PAUSE'])
+      }
+      else if (seconds === 0 ) {
         setSeconds((prevSeconds) => 59);
         setMinutes((prevMinutes) => prevMinutes - 1);
-      } else if (seconds > 0 && start[0]) {
+      } else if (seconds > 0 ) {
         setSeconds((prevSeconds) => prevSeconds - 1);
       }
-    }, 1000);
+    }}, 1000);
     return () => clearInterval(timer);
   }, [seconds, minutes,start]);
   return (
@@ -56,6 +64,7 @@ export default function Home() {
                     <div className="border-b-4 p-1  border-blue-800 w-86 h-10 flex items-center justify-around">
                       <h1 className="text-white font-bold">CASIO</h1>
                       <h1 className="text-yellow-500 font-bold"> F-91W </h1>
+                      
                     </div>
                     <div className="flex text-sm flex-row items-center justify-around w-86 h-50">
                       <div className="gap-1 flex items-center justify-center">
