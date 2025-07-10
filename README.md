@@ -29,11 +29,13 @@ The following project is a minimalist Pomodoro Timer, inspired by Casio watches
 - Include background music using the spotify API
 
 ## Run Locally
-```git clone  https://github.com/Mgalinri/pomodoro_timer.git
+```
+git clone  https://github.com/Mgalinri/pomodoro_timer.git
 cd pomodoro_timer
 cd pomodoro
 npm install
-npm run dev ```
+npm run dev
+```
 
 ## License and Disclaimer
 This project is not in any way licensed by Casio, it is just a portfolio project. 
