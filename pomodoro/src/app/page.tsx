@@ -26,7 +26,7 @@ export default function Home() {
   }
   function handlePause(){
        if(start[0]){
-          setStart([false,'RESTART'])
+          setStart([false,'RESUME'])
        }
        else if(!start[0]){
           setStart([true,'PAUSE'])
